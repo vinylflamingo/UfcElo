@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Bouts";
+}
+
+<h1 class="text-center">Fights</h1>
+    <div>
+        @foreach (var bout in ViewBag.Bouts)
+        {
+            <div class="panel panel-default">
+                <div class="panel-body text-center">
+                    <p>@bout.WeightClass</p>
+                    <h3>@bout.RedFighterId vs @bout.BlueFighterId </h3>
+                    <p>@bout.BoutDate</p>
+                    <p>@bout.BoutLocation</p>
+                </div>
+            </div>
+        }
+    </div>
+
+
+

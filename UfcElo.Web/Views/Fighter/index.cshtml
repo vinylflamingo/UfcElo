@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Fighters";
+}
+
+<h1 class="text-center">Fighters</h1>
+<div>
+    @foreach (var fighter in Model)
+    {
+        <div class="panel panel-default">
+            <div class="panel-body text-center">
+                <h2>@fighter.FirstName "@fighter.Nickname" @fighter.LastName</h2>
+                <h3>ELO: @fighter.EloRating</h3>
+                <p>@fighter.weightClass</p>
+                <p>@fighter.Wins - @fighter.Losses - @fighter.Draws</p>
+                <p>@fighter.Hometown</p>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
