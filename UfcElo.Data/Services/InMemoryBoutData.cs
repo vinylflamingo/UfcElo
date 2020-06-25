@@ -8,6 +8,8 @@ using UfcElo.Web.Models;
 
 namespace UfcElo.Data.Services
 {
+
+    //TEMPORARY
     public class InMemoryBoutData :IBoutData
     {        
         List<Bout> bouts;
