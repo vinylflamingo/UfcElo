@@ -2,13 +2,14 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UfcElo.Web.Models;
+using UfcElo.Data.Models;
 
 namespace UfcElo.Data.Services
 {
     public interface IFighterData
     {
         IEnumerable<Fighter> GetAll();
+        Fighter GetFighter(int id);
 
     }
 }

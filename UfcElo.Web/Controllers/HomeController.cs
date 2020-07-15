@@ -14,24 +14,14 @@ namespace UfcElo.Web.Controllers
         IFighterData fighterData;
         public HomeController()
         {
-            boutData = new InMemoryBoutData();
             fighterData = new InMemoryFighterData();
+            boutData = new InMemoryBoutData();
         }
         public ActionResult Index()
         {
 
             return View();
         }
-
-        public ActionResult Bouts()
-        {
-            ViewBag.Fighters = fighterData.GetAll();
-            ViewBag.Bouts = boutData.GetAll();
-
-            return View();
-
-        }
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

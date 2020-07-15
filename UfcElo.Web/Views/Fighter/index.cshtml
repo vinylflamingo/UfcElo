@@ -1,23 +1,81 @@
-﻿@{
-    ViewBag.Title = "Fighters";
+﻿@model IEnumerable<UfcElo.Data.Models.Fighter>
+
+@{
+    ViewBag.Title = "Index";
 }
 
-<h1 class="text-center">Fighters</h1>
-<div>
-    @foreach (var fighter in Model)
-    {
-        <div class="panel panel-default">
-            <div class="panel-body text-center">
-                <h2>@fighter.FirstName "@fighter.Nickname" @fighter.LastName</h2>
-                <h3>ELO: @fighter.EloRating</h3>
-                <p>@fighter.weightClass</p>
-                <p>@fighter.Wins - @fighter.Losses - @fighter.Draws</p>
-                <p>@fighter.Hometown</p>
-            </div>
-        </div>
-    }
-</div>
+<h2>Index</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nickname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hometown)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Wins)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Losses)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Draws)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EloRating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsMale)
+        </th>
+        <th></th>
+    </tr>
 
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nickname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hometown)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wins)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Losses)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Draws)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EloRating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsMale)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
 
-
+</table>

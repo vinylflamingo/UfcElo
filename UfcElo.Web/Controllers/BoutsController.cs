@@ -3,47 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using UfcElo.Data.Models;
 using UfcElo.Data.Services;
+using UfcElo.Web.Models;
 
 namespace UfcElo.Web.Controllers
 {
-    public class FighterController : Controller
+    public class BoutsController : Controller
     {
         IBoutData boutData;
         IFighterData fighterData;
-        public FighterController()
+        public BoutsController()
         {
             boutData = new InMemoryBoutData();
             fighterData = new InMemoryFighterData();
         }
 
-        // GET: Fighter
+        // GET: Bouts
         public ActionResult Index()
         {
+            ViewBag.Fighters = fighterData.GetAll();
+            ViewBag.Bouts = boutData.GetAll();
 
-            var model = fighterData.GetAll();
-            return View(model);
+            return View();
         }
 
-        // GET: Fighter/Details/5
+
+            // GET: Bouts/Details/5
         public ActionResult Details(int id)
         {
-            var model = fighterData.GetFighter(id);
-            if(model == null)
-            {
-                return View("NotFound");
-            }
-            return View(model);
+            ViewBag.Bout = boutData.GetBout(id);
+            return View();
         }
 
-        // GET: Fighter/Create
+        // GET: Bouts/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Fighter/Create
+        // POST: Bouts/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -59,13 +57,13 @@ namespace UfcElo.Web.Controllers
             }
         }
 
-        // GET: Fighter/Edit/5
+        // GET: Bouts/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Fighter/Edit/5
+        // POST: Bouts/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -81,13 +79,13 @@ namespace UfcElo.Web.Controllers
             }
         }
 
-        // GET: Fighter/Delete/5
+        // GET: Bouts/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Fighter/Delete/5
+        // POST: Bouts/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

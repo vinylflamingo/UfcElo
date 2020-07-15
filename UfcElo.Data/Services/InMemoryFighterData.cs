@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UfcElo.Web.Models;
+using UfcElo.Data.Models;
 
 namespace UfcElo.Data.Services
 {
@@ -35,6 +35,11 @@ namespace UfcElo.Data.Services
         public IEnumerable<Fighter> GetAll()
         {
             return fighters.OrderByDescending(fighter => fighter.EloRating); 
+        }
+
+        public Fighter GetFighter(int id)
+        {
+            return fighters.FirstOrDefault(x => x.Id == id);
         }
     }
 }

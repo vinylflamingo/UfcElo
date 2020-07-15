@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using UfcElo.Data.Models;
 
-namespace UfcElo.Web.Models
+namespace UfcElo.Data.Models
 {
     public class Fighter
     {
