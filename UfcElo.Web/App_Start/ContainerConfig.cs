@@ -18,8 +18,9 @@ namespace UfcElo.Web
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterApiControllers(typeof(MvcApplication).Assembly);
-            builder.RegisterType<InMemoryBoutData>().As<IBoutData>().SingleInstance() ;
-            builder.RegisterType<InMemoryFighterData>().As<IFighterData>().SingleInstance();
+            builder.RegisterType<SqlBoutData>().As<IBoutData>().InstancePerRequest();
+            builder.RegisterType<SqlFighterData>().As<IFighterData>().InstancePerRequest();
+            builder.RegisterType<UfcEloDbContext>().InstancePerRequest();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

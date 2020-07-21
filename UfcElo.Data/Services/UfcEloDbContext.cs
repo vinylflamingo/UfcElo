@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,11 +8,10 @@ using UfcElo.Data.Models;
 
 namespace UfcElo.Data.Services
 {
-    public interface IBoutData
+    public class UfcEloDbContext : DbContext
     {
-        IEnumerable<Bout> GetAll();
-        Bout GetBout(int id);
-        void Add(Bout bout);
-        void Update(Bout bout);
+        public DbSet<Fighter> Fighters { get; set; }
+        public DbSet<Bout> Bouts { get; set; }
+
     }
 }

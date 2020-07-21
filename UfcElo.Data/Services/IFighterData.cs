@@ -10,6 +10,8 @@ namespace UfcElo.Data.Services
     {
         IEnumerable<Fighter> GetAll();
         Fighter GetFighter(int id);
+        void Add(Fighter fighter);
+        void Update(Fighter fighter);
 
     }
 }

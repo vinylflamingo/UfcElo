@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,12 +11,15 @@ namespace UfcElo.Web.Controllers
 {
     public class FighterController : Controller
     {
-        IBoutData boutData;
-        IFighterData fighterData;
-        public FighterController()
+
+        private readonly IFighterData fighterData;
+        private readonly IBoutData boutData;
+
+        public FighterController(IFighterData fighterData, IBoutData boutData)
         {
-            boutData = new InMemoryBoutData();
-            fighterData = new InMemoryFighterData();
+            this.boutData = boutData;
+            this.fighterData = fighterData;
+            
         }
 
         // GET: Fighter
@@ -38,6 +42,7 @@ namespace UfcElo.Web.Controllers
         }
 
         // GET: Fighter/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -45,13 +50,14 @@ namespace UfcElo.Web.Controllers
 
         // POST: Fighter/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Fighter fighter)
         {
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                fighterData.Add(fighter);
+                return RedirectToAction("Details", new { id = fighter.Id });
             }
             catch
             {
@@ -62,18 +68,30 @@ namespace UfcElo.Web.Controllers
         // GET: Fighter/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = fighterData.GetFighter(id);
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
         }
 
         // POST: Fighter/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Fighter fighter)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    fighterData.Update(fighter);
+                    return RedirectToAction("Details", new { id = fighter.Id });
+                }
 
-                return RedirectToAction("Index");
+
+
+                return View(fighter);
             }
             catch
             {

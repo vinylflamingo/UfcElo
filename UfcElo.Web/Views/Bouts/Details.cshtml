@@ -3,7 +3,7 @@
     ViewBag.Title = "Details";
 }
 
-<h1 class="text-center">@ViewBag.Bout.RedFighterId vs @ViewBag.Bout.BlueFighterId </h1>
+    <h1 class="text-center">@ViewBag.RedFighter.FirstName @ViewBag.RedFighter.Nickname @ViewBag.RedFighter.LastName  vs @ViewBag.BlueFighter.FirstName @ViewBag.BlueFighter.Nickname @ViewBag.BlueFighter.LastName </h1>
 <div>
     <div class="panel panel-default">
         <div class="panel-body text-center">
@@ -13,4 +13,7 @@
         </div>
     </div>
 </div>
-
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = ViewBag.Bout.BoutId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

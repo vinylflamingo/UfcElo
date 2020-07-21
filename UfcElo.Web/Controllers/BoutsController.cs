@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UfcElo.Data.Models;
 using UfcElo.Data.Services;
 using UfcElo.Web.Models;
 
@@ -10,12 +11,12 @@ namespace UfcElo.Web.Controllers
 {
     public class BoutsController : Controller
     {
-        IBoutData boutData;
-        IFighterData fighterData;
-        public BoutsController()
+        private readonly IBoutData boutData;
+        private readonly IFighterData fighterData;
+        public BoutsController(IFighterData fighterData, IBoutData boutData)
         {
-            boutData = new InMemoryBoutData();
-            fighterData = new InMemoryFighterData();
+            this.boutData = boutData;
+            this.fighterData = fighterData;
         }
 
         // GET: Bouts
@@ -31,25 +32,31 @@ namespace UfcElo.Web.Controllers
             // GET: Bouts/Details/5
         public ActionResult Details(int id)
         {
-            ViewBag.Bout = boutData.GetBout(id);
+
+            var bout = boutData.GetBout(id);
+            ViewBag.Bout = bout;
+            ViewBag.BlueFighter = fighterData.GetFighter(bout.BlueFighterId);
+            ViewBag.RedFighter = fighterData.GetFighter(bout.RedFighterId);
             return View();
         }
 
         // GET: Bouts/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
         // POST: Bouts/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Bout bout)
         {
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                boutData.Add(bout);
+                return RedirectToAction("Details", new { id = bout.BoutId });
             }
             catch
             {
@@ -60,18 +67,28 @@ namespace UfcElo.Web.Controllers
         // GET: Bouts/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = boutData.GetBout(id);
+            if(model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
         }
 
         // POST: Bouts/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Bout bout)
         {
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    boutData.Update(bout);
+                    return RedirectToAction("Details", new { id = bout.BoutId });
+                }
+                return View(bout);
             }
             catch
             {
