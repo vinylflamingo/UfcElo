@@ -13,5 +13,6 @@ namespace UfcElo.Data.Services
         Bout GetBout(int id);
         void Add(Bout bout);
         void Update(Bout bout);
+        void Delete(int id);
     }
 }

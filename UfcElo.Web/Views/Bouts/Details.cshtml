@@ -1,19 +1,17 @@
-﻿
+﻿@model UfcElo.Data.Models.Bout
 @{
-    ViewBag.Title = "Details";
+
 }
 
-    <h1 class="text-center">@ViewBag.RedFighter.FirstName @ViewBag.RedFighter.Nickname @ViewBag.RedFighter.LastName  vs @ViewBag.BlueFighter.FirstName @ViewBag.BlueFighter.Nickname @ViewBag.BlueFighter.LastName </h1>
 <div>
-    <div class="panel panel-default">
-        <div class="panel-body text-center">
-            <p>@ViewBag.Bout.WeightClass</p>
-            <p>@ViewBag.Bout.BoutDate</p>
-            <p>@ViewBag.Bout.BoutLocation</p>
-        </div>
-    </div>
+
+    @Html.Partial("_BoutSummary", Model);
+
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = ViewBag.Bout.BoutId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@*
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = ViewBag.Bout.BoutId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+*@

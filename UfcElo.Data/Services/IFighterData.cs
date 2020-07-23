@@ -12,6 +12,7 @@ namespace UfcElo.Data.Services
         Fighter GetFighter(int id);
         void Add(Fighter fighter);
         void Update(Fighter fighter);
+        void Delete(int id);
 
     }
 }

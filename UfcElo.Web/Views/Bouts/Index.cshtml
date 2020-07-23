@@ -1,20 +1,17 @@
-﻿
+﻿@model IEnumerable<UfcElo.Data.Models.Bout>
 @{
-    ViewBag.Title = "Bouts";
+   
 }
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 
 <h1 class="text-center">Fights</h1>
     <div>
-        @foreach (var bout in ViewBag.Bouts)
+        @foreach (var bout in Model)
         {
-            <div class="panel panel-default">
-                <div class="panel-body text-center">
-                    <p>@bout.WeightClass</p>
-                    <h3>@bout.RedFighterId vs @bout.BlueFighterId </h3>
-                    <p>@bout.BoutDate</p>
-                    <p>@bout.BoutLocation</p>
-                </div>
-            </div>
+            @Html.Partial("_BoutSummary", bout);
         }
     </div>
 

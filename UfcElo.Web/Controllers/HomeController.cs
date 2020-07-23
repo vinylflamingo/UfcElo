@@ -10,12 +10,12 @@ namespace UfcElo.Web.Controllers
 {
     public class HomeController : Controller
     {
-        IBoutData boutData;
-        IFighterData fighterData;
-        public HomeController()
+        private readonly IFighterData fighterData;
+        private readonly IBoutData boutData;
+        public HomeController(IFighterData fighterData, IBoutData boutData)
         {
-            fighterData = new InMemoryFighterData();
-            boutData = new InMemoryBoutData();
+            this.boutData = boutData;
+            this.fighterData = fighterData;
         }
         public ActionResult Index()
         {

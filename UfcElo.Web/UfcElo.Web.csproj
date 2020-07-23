@@ -206,6 +206,11 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BoutsController.cs" />
+    <Compile Include="Migrations\202007230227130_Update1.cs" />
+    <Compile Include="Migrations\202007230227130_Update1.designer.cs">
+      <DependentUpon>202007230227130_Update1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FighterViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -230,6 +235,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\UfcEloWeb20200722170336 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -285,6 +291,10 @@
     <Content Include="Views\Fighter\Create.cshtml" />
     <Content Include="Views\Fighter\Edit.cshtml" />
     <Content Include="Views\Bouts\Edit.cshtml" />
+    <Content Include="Views\Fighter\Delete.cshtml" />
+    <Content Include="Views\Bouts\_BoutSummary.cshtml" />
+    <Content Include="Views\Bouts\Delete.cshtml" />
+    <Content Include="Views\Bouts\FinalizeBout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -307,6 +317,11 @@
       <Project>{0438c293-372c-4574-a191-56b35f89b218}</Project>
       <Name>UfcElo.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202007230227130_Update1.resx">
+      <DependentUpon>202007230227130_Update1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.EnterpriseServices;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Mvc;
 using UfcElo.Data.Models;
@@ -11,39 +14,38 @@ namespace UfcElo.Web.Controllers
 {
     public class BoutsController : Controller
     {
-        private readonly IBoutData boutData;
-        private readonly IFighterData fighterData;
-        public BoutsController(IFighterData fighterData, IBoutData boutData)
+        public  IBoutData boutData;
+        public  IFighterData fighterData;
+        public  IEloService eloService;
+        public BoutsController(IFighterData fighterData, IBoutData boutData, IEloService eloService)
         {
             this.boutData = boutData;
             this.fighterData = fighterData;
+            this.eloService = eloService;
         }
 
         // GET: Bouts
         public ActionResult Index()
         {
-            ViewBag.Fighters = fighterData.GetAll();
-            ViewBag.Bouts = boutData.GetAll();
-
-            return View();
+            Array fighters = fighterData.GetAll().Reverse().ToArray();
+            ViewBag.Fighters = fighters;
+            IEnumerable<Bout> model = boutData.GetAll();
+            return View(model);
         }
 
 
             // GET: Bouts/Details/5
         public ActionResult Details(int id)
         {
-
-            var bout = boutData.GetBout(id);
-            ViewBag.Bout = bout;
-            ViewBag.BlueFighter = fighterData.GetFighter(bout.BlueFighterId);
-            ViewBag.RedFighter = fighterData.GetFighter(bout.RedFighterId);
-            return View();
+            ViewBag.Fighters = fighterData.GetAll().ToArray();
+            Bout model = boutData.GetBout(id);
+            return View(model);
         }
 
         // GET: Bouts/Create
         public ActionResult Create()
         {
-
+            ViewBag.Fighters = fighterData.GetAll().ToArray().Reverse();
             return View();
         }
 
@@ -67,6 +69,7 @@ namespace UfcElo.Web.Controllers
         // GET: Bouts/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.Fighters = fighterData.GetAll().ToArray();
             var model = boutData.GetBout(id);
             if(model == null)
             {
@@ -99,17 +102,22 @@ namespace UfcElo.Web.Controllers
         // GET: Bouts/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = boutData.GetBout(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
         }
 
         // POST: Bouts/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, FormCollection formCollection)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                boutData.Delete(id);
                 return RedirectToAction("Index");
             }
             catch
@@ -117,5 +125,47 @@ namespace UfcElo.Web.Controllers
                 return View();
             }
         }
+
+        //GET: Bouts/FinalizeBout/id
+        public ActionResult FinalizeBout(int id)
+        {
+            
+            var model = boutData.GetBout(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.RedFighter = fighterData.GetFighter(model.RedFighterId);
+            ViewBag.BlueFighter = fighterData.GetFighter(model.BlueFighterId);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FinalizeBout(Bout bout, FormCollection formCollection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    boutData.Update(bout);
+                    bool result = eloService.CalculateNewElo(bout.BoutId);
+                    if (result)
+                    {
+                        return RedirectToAction("Details", new { id = bout.BoutId });
+                    }
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Create"); 
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return HttpNotFound();
+            }
+
+        }
+
     }
-}
+}                                                                                                                            

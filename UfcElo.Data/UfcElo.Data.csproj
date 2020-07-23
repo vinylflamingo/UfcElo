@@ -51,11 +51,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\202007232101546_Init.cs" />
+    <Compile Include="Migrations\202007232101546_Init.designer.cs">
+      <DependentUpon>202007232101546_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007232120153_Init2.cs" />
+    <Compile Include="Migrations\202007232120153_Init2.designer.cs">
+      <DependentUpon>202007232120153_Init2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bout.cs" />
     <Compile Include="Models\Fighter.cs" />
     <Compile Include="Models\WeightClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EloService.cs" />
     <Compile Include="Services\IBoutData.cs" />
+    <Compile Include="Services\IEloService.cs" />
     <Compile Include="Services\IFighterData.cs" />
     <Compile Include="Services\SqlBoutData.cs" />
     <Compile Include="Services\SqlFighterData.cs" />
@@ -64,6 +75,17 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202007232101546_Init.resx">
+      <DependentUpon>202007232101546_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007232120153_Init2.resx">
+      <DependentUpon>202007232120153_Init2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

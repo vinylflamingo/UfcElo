@@ -9,6 +9,7 @@ namespace UfcElo.Data.Models
 {
     public class Fighter
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         public string LastName { get; set; }

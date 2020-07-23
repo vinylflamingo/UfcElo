@@ -23,6 +23,13 @@ namespace UfcElo.Data.Services
             db.SaveChanges();
         }
 
+        public void Delete(int id)
+        {
+            var bout = db.Bouts.Find(id);
+            db.Bouts.Remove(bout);
+            db.SaveChanges();
+        }
+
         public IEnumerable<Bout> GetAll()
         {
             return db.Bouts.OrderByDescending(bout => bout.BoutDate);

@@ -21,6 +21,13 @@ namespace UfcElo.Data.Services
             db.SaveChanges();
         }
 
+        public void Delete(int id)
+        {
+            var fighter = db.Fighters.Find(id);
+            db.Fighters.Remove(fighter);
+            db.SaveChanges();
+        }
+
         public IEnumerable<Fighter> GetAll()
         {
             return db.Fighters.OrderByDescending(fighter => fighter.EloRating);

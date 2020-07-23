@@ -88,9 +88,6 @@ namespace UfcElo.Web.Controllers
                     fighterData.Update(fighter);
                     return RedirectToAction("Details", new { id = fighter.Id });
                 }
-
-
-
                 return View(fighter);
             }
             catch
@@ -102,17 +99,22 @@ namespace UfcElo.Web.Controllers
         // GET: Fighter/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = fighterData.GetFighter(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
         }
 
         // POST: Fighter/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, FormCollection form)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                fighterData.Delete(id);
                 return RedirectToAction("Index");
             }
             catch

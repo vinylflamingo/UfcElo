@@ -20,7 +20,9 @@ namespace UfcElo.Web
             builder.RegisterApiControllers(typeof(MvcApplication).Assembly);
             builder.RegisterType<SqlBoutData>().As<IBoutData>().InstancePerRequest();
             builder.RegisterType<SqlFighterData>().As<IFighterData>().InstancePerRequest();
+            builder.RegisterType<EloService>().As<IEloService>().InstancePerRequest();
             builder.RegisterType<UfcEloDbContext>().InstancePerRequest();
+            
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

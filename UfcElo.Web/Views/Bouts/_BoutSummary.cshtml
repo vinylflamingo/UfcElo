@@ -1,0 +1,22 @@
+﻿@model UfcElo.Data.Models.Bout
+@{ 
+
+        }
+
+<div class="panel panel-default">
+    <div class="panel-body text-center">
+        <p>@Model.WeightClass</p>
+        <h3>@ViewBag.Fighters[Model.RedFighterId - 1].FirstName 
+           "@ViewBag.Fighters[Model.RedFighterId - 1].Nickname"
+            @ViewBag.Fighters[Model.RedFighterId - 1].LastName 
+            vs 
+            @ViewBag.Fighters[Model.BlueFighterId - 1].FirstName 
+           "@ViewBag.Fighters[Model.BlueFighterId - 1].Nickname"
+            @ViewBag.Fighters[Model.BlueFighterId - 1].LastName
+        </h3>
+        <p>@Model.BoutDate</p>
+        <p>@Model.BoutLocation</p>
+        <p>@Html.ActionLink("Edit", "Edit", new { id = Model.BoutId })</p>
+        <p>@Html.ActionLink("Back to List", "Index")</p>
+    </div>
+</div>
