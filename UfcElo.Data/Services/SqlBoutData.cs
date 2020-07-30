@@ -32,7 +32,7 @@ namespace UfcElo.Data.Services
 
         public IEnumerable<Bout> GetAll()
         {
-            return db.Bouts.OrderByDescending(bout => bout.BoutDate);
+            return db.Bouts.OrderByDescending(bout => bout.BoutId);
         }
 
         public Bout GetBout(int id)

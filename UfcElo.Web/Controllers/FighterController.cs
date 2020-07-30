@@ -26,7 +26,7 @@ namespace UfcElo.Web.Controllers
         public ActionResult Index()
         {
 
-            var model = fighterData.GetAll();
+            var model = fighterData.GetAllOrderByEloRating();
             return View(model);
         }
 

@@ -28,43 +28,56 @@ namespace UfcElo.Data.Services
                    (Math.Pow(10, 1.0 * (FighterOpponentElo - FighterElo) / 400))), 2);
         }
 
-        public bool CalculateNewElo(int BoutId)
+        public (Fighter RedFighter, Fighter BlueFighter) FindFighterByBoutId(int BoutId)
         {
-            //pull the required objects to make comparisons 
             Bout bout = db.Bouts.FirstOrDefault(b => b.BoutId == BoutId);
-
             Fighter RedFighter = db.Fighters.FirstOrDefault(f => f.Id == bout.RedFighterId);
             Fighter BlueFighter = db.Fighters.FirstOrDefault(f => f.Id == bout.BlueFighterId);
-            Debug.WriteLine(RedFighter.FirstName);
+            return (RedFighter, BlueFighter);
+        }
+
+
+        public (Fighter RedFighter, Fighter BlueFighter) CalculateNewElo((Fighter RedFighter, Fighter BlueFighter) fighters, Bout bout)
+        {
+            //pull the required objects to make comparisons 
+            Debug.WriteLine(fighters.RedFighter.FirstName);
 
             //find the probability of win.
-            double ProbabilityRedWin = ProbabilityOfWin(RedFighter.EloRating, BlueFighter.EloRating);
-            double ProbabilityBlueWin = ProbabilityOfWin(RedFighter.EloRating, BlueFighter.EloRating);
+            double ProbabilityRedWin = ProbabilityOfWin(fighters.RedFighter.EloRating, fighters.BlueFighter.EloRating);
+            double ProbabilityBlueWin = ProbabilityOfWin(fighters.RedFighter.EloRating, fighters.BlueFighter.EloRating);
 
-            if (bout.WinnerId == RedFighter.Id)
+            if (bout.WinnerId == fighters.RedFighter.Id)
             {
-                RedFighter.EloRating = RedFighter.EloRating + (int)(k * (1 - ProbabilityRedWin));
-                BlueFighter.EloRating = BlueFighter.EloRating + (int)(k * (0 - ProbabilityBlueWin));
+                fighters.RedFighter.EloRating = fighters.RedFighter.EloRating + (int)(k * (1 - ProbabilityRedWin));
+                fighters.BlueFighter.EloRating = fighters.BlueFighter.EloRating + (int)(k * (0 - ProbabilityBlueWin));
             }
-            else if (bout.WinnerId == BlueFighter.Id)
+            else if (bout.WinnerId == fighters.BlueFighter.Id)
             {
-                RedFighter.EloRating = RedFighter.EloRating + (int)(k * (0 - ProbabilityRedWin));
-                BlueFighter.EloRating = BlueFighter.EloRating + (int)(k * (1 - ProbabilityBlueWin));
+                fighters.RedFighter.EloRating = fighters.RedFighter.EloRating + (int)(k * (0 - ProbabilityRedWin));
+                fighters.BlueFighter.EloRating = fighters.BlueFighter.EloRating + (int)(k * (1 - ProbabilityBlueWin));
             }
             else
-            {     
-                return false;
+            {
+                Debug.WriteLine("Calculation Failed. Original Elo's Restored");
+                return fighters;
             }
+
+            Debug.WriteLine("Calculation Completed. Returning new Elo Scores");
+            return fighters;
+        }
+
+        public bool UpdateNewElo((Fighter, Fighter) fighters)
+        {
             try
             {
 
-                Debug.WriteLine("RedFighter Elo : " + RedFighter.EloRating);
-                var RFentry = db.Entry(RedFighter);
+                Debug.WriteLine("RedFighter Elo : " + fighters.Item1.EloRating);
+                var RFentry = db.Entry(fighters.Item1);
                 RFentry.State = EntityState.Modified;
                 db.SaveChanges();
 
-                Debug.WriteLine("RedFighter Elo : " + RedFighter.EloRating);
-                var BFentry = db.Entry(RedFighter);
+                Debug.WriteLine("BlueFighter Elo : " + fighters.Item2.EloRating);
+                var BFentry = db.Entry(fighters.Item2);
                 BFentry.State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -75,7 +88,6 @@ namespace UfcElo.Data.Services
                 return false;
             }
             return true;
-
         }
 
     }

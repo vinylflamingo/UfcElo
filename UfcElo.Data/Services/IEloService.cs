@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UfcElo.Data.Models;
 
 namespace UfcElo.Data.Services
 {
     public interface IEloService
     {
+        (Fighter RedFighter, Fighter BlueFighter) CalculateNewElo((Fighter RedFighter, Fighter BlueFighter) fighters, Bout bout);
+        (Fighter RedFighter, Fighter BlueFighter) FindFighterByBoutId(int BoutId);
         double ProbabilityOfWin(double FighterElo, double FighterOpponentElo);
-
-        bool CalculateNewElo(int BoutId);
+        bool UpdateNewElo((Fighter, Fighter) fighters);
     }
 }

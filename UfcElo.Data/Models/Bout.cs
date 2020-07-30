@@ -18,7 +18,7 @@ namespace UfcElo.Data.Models
         public int BlueFighterId { get; set; }
         public DateTime? BoutDate { get; set; } = null;
         public string BoutLocation { get; set; }
-        public int WinnerId { get; set; }
+        public int WinnerId { get; set; } = 0;
         public bool IsTitleBout { get; set; }
         public WeightClass WeightClass { get; set; }
         public bool isBoutComplete { get; set; } = false; 

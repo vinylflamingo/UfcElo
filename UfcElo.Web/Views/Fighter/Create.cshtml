@@ -71,14 +71,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EloRating, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EloRating, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EloRating, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.IsMale, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">

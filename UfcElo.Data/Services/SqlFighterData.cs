@@ -30,6 +30,11 @@ namespace UfcElo.Data.Services
 
         public IEnumerable<Fighter> GetAll()
         {
+            return db.Fighters.OrderByDescending(fighter => fighter.Id);
+        }
+
+        public IEnumerable<Fighter> GetAllOrderByEloRating()
+        {
             return db.Fighters.OrderByDescending(fighter => fighter.EloRating);
         }
 

@@ -37,7 +37,8 @@ namespace UfcElo.Web.Controllers
             // GET: Bouts/Details/5
         public ActionResult Details(int id)
         {
-            ViewBag.Fighters = fighterData.GetAll().ToArray();
+            Array fighters = fighterData.GetAll().Reverse().ToArray();
+            ViewBag.Fighters = fighters;
             Bout model = boutData.GetBout(id);
             return View(model);
         }
@@ -45,7 +46,7 @@ namespace UfcElo.Web.Controllers
         // GET: Bouts/Create
         public ActionResult Create()
         {
-            ViewBag.Fighters = fighterData.GetAll().ToArray().Reverse();
+            ViewBag.Fighters = fighterData.GetAll().Reverse().ToList();
             return View();
         }
 
@@ -129,8 +130,13 @@ namespace UfcElo.Web.Controllers
         //GET: Bouts/FinalizeBout/id
         public ActionResult FinalizeBout(int id)
         {
-            
+
+            ViewBag.Fighters = fighterData.GetAll().ToArray();
             var model = boutData.GetBout(id);
+            if (model.isBoutComplete == true)
+            {
+                return RedirectToAction("Index");
+            }
             if (model == null)
             {
                 return HttpNotFound();
@@ -150,7 +156,9 @@ namespace UfcElo.Web.Controllers
                 if (ModelState.IsValid)
                 {
                     boutData.Update(bout);
-                    bool result = eloService.CalculateNewElo(bout.BoutId);
+                    var fighters = eloService.FindFighterByBoutId(bout.BoutId);
+                    var newElos = eloService.CalculateNewElo(fighters, bout);
+                    bool result = eloService.UpdateNewElo(newElos);
                     if (result)
                     {
                         return RedirectToAction("Details", new { id = bout.BoutId });

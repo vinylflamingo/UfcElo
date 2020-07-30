@@ -1,10 +1,10 @@
 ﻿@model UfcElo.Data.Models.Bout
 
 @{
-    ViewBag.Title = "FinalizeBout";
+    ViewBag.Title = "Finalize Bout";
 }
 
-<h2>FinalizeBout</h2>
+<h2>Finalize Bout</h2>
 
 @using (Html.BeginForm())
 {
@@ -17,9 +17,9 @@
         @Html.HiddenFor(model => model.BoutId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RedFighterId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RedFighterId, htmlAttributes: new { @class = "control-label col-md-2" })               
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RedFighterId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.RedFighterId, new SelectList(ViewBag.Fighters, "Id", "LastName", "FirstName"))
                 @Html.ValidationMessageFor(model => model.RedFighterId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BlueFighterId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BlueFighterId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.BlueFighterId, new SelectList(ViewBag.Fighters, "Id", "LastName", "FirstName"))
                 @Html.ValidationMessageFor(model => model.BlueFighterId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,7 +51,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.WinnerId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.WinnerId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.WinnerId, new SelectList(ViewBag.Fighters, "Id", "LastName", "FirstName"))
                 @Html.ValidationMessageFor(model => model.WinnerId, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -20,7 +20,7 @@ namespace UfcElo.Web.Controllers
         public ActionResult Index()
         {
 
-            return View();
+            return RedirectToAction("Index", "Fighter");
         }
         public ActionResult About()
         {
