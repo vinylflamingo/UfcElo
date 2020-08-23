@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using System.Web.Http.Controllers;
 
 [assembly: OwinStartupAttribute(typeof(UfcElo.Web.Startup))]
 namespace UfcElo.Web

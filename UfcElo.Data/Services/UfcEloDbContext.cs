@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using UfcElo.Data.Models;
 
 namespace UfcElo.Data.Services
@@ -12,6 +7,7 @@ namespace UfcElo.Data.Services
     {
         public DbSet<Fighter> Fighters { get; set; }
         public DbSet<Bout> Bouts { get; set; }
+
 
     }
 }

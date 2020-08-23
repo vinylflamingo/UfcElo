@@ -1,4 +1,4 @@
-﻿@model IEnumerable<UfcElo.Data.Models.Bout>
+﻿@model UfcElo.Web.Models.AllBoutsViewModel
 @{
    
 }
@@ -8,12 +8,21 @@
 </p>
 
 <h1 class="text-center">Fights</h1>
-    <div>
-        @foreach (var bout in Model)
+<div>
+    @{
+        var boutList = Model.bouts.ToList();
+        foreach (var x in boutList)
         {
-            @Html.Partial("_BoutSummary", bout);
+            UfcElo.Web.Models.BoutViewModel boutViewModel = new UfcElo.Web.Models.BoutViewModel
+            {
+                bout = x,
+                fighters = Model.fighters
+            };
+
+            @Html.Partial("_BoutSummary", boutViewModel);
         }
-    </div>
+    }
+</div>
 
 
 

@@ -1,15 +1,17 @@
-﻿@model UfcElo.Data.Models.Bout
-@{ 
+﻿@model UfcElo.Web.Models.BoutViewModel
+@{
+    var redFighter = Model.fighters.First(x => x.Id == Model.bout.RedFighterId);
+    var blueFighter = Model.fighters.First(x => x.Id == Model.bout.BlueFighterId);
+}
 
-        }
 
 <div class="panel panel-default">
     <div class="panel-body text-center">
-        <p>@Model.WeightClass</p>
+        <p>@Model.bout.WeightClass</p>
 
-        @if (Model.isBoutComplete == true)
+        @if (Model.bout.isBoutComplete == true)
          {
-            if (Model.WinnerId == Model.RedFighterId)
+            if (Model.bout.WinnerId == redFighter.Id)
             {
                 <p>Winner  :  Loser</p>
             }
@@ -20,24 +22,28 @@
          }
 
 
+        @{ 
+
+        }
     <h3>
-        @ViewBag.Fighters[Model.RedFighterId - 1].FirstName
-       "@ViewBag.Fighters[Model.RedFighterId - 1].Nickname"
-        @ViewBag.Fighters[Model.RedFighterId - 1].LastName
+        
+        @redFighter.FirstName
+       "@redFighter.Nickname"
+        @redFighter.LastName
         vs
-        @ViewBag.Fighters[Model.BlueFighterId - 1].FirstName
-       "@ViewBag.Fighters[Model.BlueFighterId - 1].Nickname"
-        @ViewBag.Fighters[Model.BlueFighterId - 1].LastName
+        @blueFighter.FirstName
+       "@blueFighter.Nickname"
+        @blueFighter.LastName
     </h3>
     <h4>
-        @ViewBag.Fighters[Model.RedFighterId - 1].EloRating
+        @redFighter.EloRating
         vs
-        @ViewBag.Fighters[Model.BlueFighterId - 1].EloRating
+        @blueFighter.EloRating
     </h4>
-    <p>@Model.BoutDate</p>
-    <p>@Model.BoutLocation</p>
-    <p>@Html.ActionLink("Edit", "Edit", new { id = Model.BoutId })</p>
-    <p>@Html.ActionLink("Finalize Bout", "FinalizeBout", new { id = Model.BoutId })</p>
+    <p>@Model.bout.BoutDate</p>
+    <p>@Model.bout.BoutLocation</p>
+    <p>@Html.ActionLink("Edit", "Edit", new { id = Model.bout.BoutId })</p>
+    <p>@Html.ActionLink("Finalize Bout", "FinalizeBout", new { id = Model.bout.BoutId })</p>
 
     <p>@Html.ActionLink("Back to List", "Index")</p>
     </div>

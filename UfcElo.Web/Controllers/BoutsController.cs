@@ -27,9 +27,11 @@ namespace UfcElo.Web.Controllers
         // GET: Bouts
         public ActionResult Index()
         {
-            Array fighters = fighterData.GetAll().Reverse().ToArray();
-            ViewBag.Fighters = fighters;
-            IEnumerable<Bout> model = boutData.GetAll();
+            AllBoutsViewModel model = new AllBoutsViewModel
+            {
+                fighters = fighterData.GetAll(),
+                bouts = boutData.GetAll()
+            };
             return View(model);
         }
 
@@ -37,12 +39,15 @@ namespace UfcElo.Web.Controllers
             // GET: Bouts/Details/5
         public ActionResult Details(int id)
         {
-            Array fighters = fighterData.GetAll().Reverse().ToArray();
-            ViewBag.Fighters = fighters;
-            Bout model = boutData.GetBout(id);
+            BoutViewModel model = new BoutViewModel
+            {
+                fighters = fighterData.GetAll(),
+                bout = boutData.GetBout(id)
+            };
             return View(model);
         }
 
+        [Authorize]
         // GET: Bouts/Create
         public ActionResult Create()
         {
@@ -50,6 +55,7 @@ namespace UfcElo.Web.Controllers
             return View();
         }
 
+        [Authorize]
         // POST: Bouts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -67,6 +73,7 @@ namespace UfcElo.Web.Controllers
             }
         }
 
+        [Authorize]
         // GET: Bouts/Edit/5
         public ActionResult Edit(int id)
         {
@@ -79,6 +86,7 @@ namespace UfcElo.Web.Controllers
             return View(model);
         }
 
+        [Authorize]
         // POST: Bouts/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -100,6 +108,7 @@ namespace UfcElo.Web.Controllers
             }
         }
 
+        [Authorize]
         // GET: Bouts/Delete/5
         public ActionResult Delete(int id)
         {
@@ -111,6 +120,7 @@ namespace UfcElo.Web.Controllers
             return View(model);
         }
 
+        [Authorize]
         // POST: Bouts/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -127,6 +137,7 @@ namespace UfcElo.Web.Controllers
             }
         }
 
+        [Authorize]
         //GET: Bouts/FinalizeBout/id
         public ActionResult FinalizeBout(int id)
         {
@@ -146,6 +157,7 @@ namespace UfcElo.Web.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult FinalizeBout(Bout bout, FormCollection formCollection)

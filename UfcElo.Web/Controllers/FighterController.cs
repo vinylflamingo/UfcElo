@@ -42,6 +42,7 @@ namespace UfcElo.Web.Controllers
         }
 
         // GET: Fighter/Create
+        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
@@ -49,6 +50,7 @@ namespace UfcElo.Web.Controllers
         }
 
         // POST: Fighter/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Fighter fighter)
@@ -66,6 +68,7 @@ namespace UfcElo.Web.Controllers
         }
 
         // GET: Fighter/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             var model = fighterData.GetFighter(id);
@@ -77,6 +80,7 @@ namespace UfcElo.Web.Controllers
         }
 
         // POST: Fighter/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Fighter fighter)
@@ -97,6 +101,7 @@ namespace UfcElo.Web.Controllers
         }
 
         // GET: Fighter/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             var model = fighterData.GetFighter(id);
@@ -108,6 +113,7 @@ namespace UfcElo.Web.Controllers
         }
 
         // POST: Fighter/Delete/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection form)
